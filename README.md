@@ -30,23 +30,20 @@ la souris/clavier (barre **Espace** pour répondre).
 
 ## Publication en ligne (GitHub Pages)
 
-Le dépôt inclut un workflow (`.github/workflows/deploy-pages.yml`) qui publie
-automatiquement le site à chaque push sur `main`.
+Le site est un simple `index.html` à la racine, servi directement par GitHub
+Pages. Pour l'activer (une seule fois) :
 
-Pour l'activer une première fois :
+1. Le dépôt doit être **public** (Pages sur dépôt privé nécessite un forfait
+   GitHub Pro).
+2. **Settings → Pages → Build and deployment → Source : « Deploy from a
+   branch »**.
+3. Branche : **`main`**, dossier : **`/ (root)`** → **Save**.
 
-1. Fusionnez cette branche dans `main`.
-2. Allez dans **Settings → Pages** du dépôt.
-3. Dans **Build and deployment → Source**, choisissez **GitHub Actions**.
-
-Le site sera alors disponible à l'adresse :
+Après une minute, le site est disponible à l'adresse :
 
 ```
 https://ckartier.github.io/TDAH/
 ```
-
-*(Alternative sans workflow : Settings → Pages → « Deploy from a branch » →
-branche `main`, dossier `/root`.)*
 
 ## Développement
 
