@@ -602,19 +602,38 @@
      MODULE 5 — Webcam eye tracking (WebGazer)
      ================================================================== */
   let wgLoaded = false, wgActive = false;
-  function loadWebgazer() {
+  const WG_CDNS = [
+    "https://webgazer.cs.brown.edu/webgazer.js",
+    "https://cdn.jsdelivr.net/npm/webgazer@3.3.0/dist/webgazer.min.js",
+    "https://unpkg.com/webgazer@3.3.0/dist/webgazer.min.js",
+    "https://cdn.jsdelivr.net/npm/webgazer/dist/webgazer.js",
+  ];
+  function loadScript(url, timeoutMs) {
     return new Promise((resolve, reject) => {
-      if (window.webgazer) return resolve();
-      const tryUrl = (url, next) => {
-        const s = document.createElement("script");
-        s.src = url; s.async = true;
-        s.onload = () => resolve();
-        s.onerror = () => next ? next() : reject(new Error("Chargement WebGazer impossible"));
-        document.head.appendChild(s);
-      };
-      tryUrl("https://webgazer.cs.brown.edu/webgazer.js",
-        () => tryUrl("https://cdn.jsdelivr.net/npm/webgazer/dist/webgazer.js", null));
+      const s = document.createElement("script");
+      s.src = url; s.async = true;
+      let done = false;
+      const to = setTimeout(() => { if (!done) { done = true; s.remove(); reject(new Error("timeout")); } }, timeoutMs);
+      s.onload = () => { if (!done) { done = true; clearTimeout(to); resolve(); } };
+      s.onerror = () => { if (!done) { done = true; clearTimeout(to); s.remove(); reject(new Error("error")); } };
+      document.head.appendChild(s);
     });
+  }
+  async function loadWebgazer() {
+    if (window.webgazer) return;
+    for (const u of WG_CDNS) {
+      try { await loadScript(u, 12000); if (window.webgazer) return; } catch (e) { /* try next */ }
+    }
+    throw new Error("cdn");
+  }
+  function showWcError(title, msg, retryFn) {
+    stopWebgazerSoft();
+    const c = $("webcam-content");
+    c.innerHTML = `<h2>${title}</h2><p class="lead">${msg}</p>
+      <div class="disclaimer" style="margin:8px 0 14px"><b>Astuce —</b> le suivi oculaire ne fonctionne que sur l'adresse sécurisée <b>https://ckartier.github.io/TDAH/</b> (pas via un aperçu type <i>htmlpreview</i>), avec une bonne lumière et le visage face à l'écran.</div>
+      <div class="btn-row"><button class="btn secondary" data-back3>← Menu</button><button class="btn" id="wc-retry">Réessayer</button></div>`;
+    c.querySelector("[data-back3]").addEventListener("click", goHome);
+    const r = $("wc-retry"); if (r) r.addEventListener("click", retryFn || startWebcam);
   }
   function stopWebgazerSoft() {
     try {
@@ -640,26 +659,60 @@
   }
   async function initWebgazer() {
     const c = $("webcam-content");
-    c.innerHTML = `<h2>Chargement…</h2><p class="lead">Initialisation de la webcam et du moteur de suivi.</p>`;
+    // --- preflight checks ---
+    if (!window.isSecureContext) {
+      return showWcError("Connexion non sécurisée",
+        "La caméra est bloquée sur les adresses non sécurisées (<code>http://</code> ou <code>file://</code>). Ouvre l'appli sur <b>https://ckartier.github.io/TDAH/</b>.");
+    }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      return showWcError("Caméra non accessible ici",
+        "Ton navigateur n'autorise pas l'accès caméra sur cette page. Si tu es passé par un aperçu (htmlpreview), ouvre plutôt <b>https://ckartier.github.io/TDAH/</b>.");
+    }
+    c.innerHTML = `<h2>Autorisation caméra…</h2><p class="lead">Accepte la demande d'accès à la caméra de ton navigateur.</p>`;
+    // --- 1. explicit permission request for a precise error ---
+    let probe;
     try {
-      await loadWebgazer();
+      probe = await navigator.mediaDevices.getUserMedia({ video: true });
+      probe.getTracks().forEach(t => t.stop());
+    } catch (err) {
+      let msg;
+      switch (err && err.name) {
+        case "NotAllowedError": case "SecurityError":
+          msg = "Permission caméra <b>refusée</b>. Clique sur l'icône caméra dans la barre d'adresse (ou Réglages du site) pour l'autoriser, puis réessaie."; break;
+        case "NotFoundError": case "OverconstrainedError": case "DevicesNotFoundError":
+          msg = "Aucune caméra détectée par le navigateur. Vérifie qu'elle n'est pas désactivée."; break;
+        case "NotReadableError": case "TrackStartError":
+          msg = "La caméra est déjà utilisée par une autre application (Zoom, Teams…). Ferme-la puis réessaie."; break;
+        default:
+          msg = "Accès caméra impossible" + (err && err.name ? ` (${err.name})` : "") + ".";
+      }
+      return showWcError("Caméra indisponible", msg);
+    }
+    // --- 2. load the tracking engine ---
+    c.innerHTML = `<h2>Chargement du moteur de suivi…</h2><p class="lead">Téléchargement de WebGazer (première fois seulement).</p>`;
+    try { await loadWebgazer(); } catch (e) {
+      return showWcError("Moteur de suivi indisponible",
+        "Le moteur WebGazer n'a pas pu être téléchargé (réseau, pare-feu, ou CDN bloqué sur ta connexion). Réessaie, éventuellement sur un autre réseau.");
+    }
+    if (!window.webgazer) {
+      return showWcError("Moteur de suivi indisponible", "WebGazer s'est chargé mais reste indisponible. Recharge la page et réessaie.");
+    }
+    // --- 3. start webgazer ---
+    c.innerHTML = `<h2>Initialisation…</h2><p class="lead">Activation du suivi du regard.</p>`;
+    try {
       wgLoaded = true;
       window.webgazer.setRegression("ridge").setGazeListener(() => {});
       window.webgazer.showVideoPreview(true).showPredictionPoints(false).showFaceOverlay(false).showFaceFeedbackBox(false);
       window.webgazer.saveDataAcrossSessions(false);
       await window.webgazer.begin();
       wgActive = true;
-      // move preview into a small fixed corner
       setTimeout(() => {
         const vid = document.getElementById("webgazerVideoContainer");
         if (vid) { vid.style.position = "fixed"; vid.style.top = "auto"; vid.style.bottom = "8px"; vid.style.left = "auto"; vid.style.right = "8px"; vid.style.zIndex = "50"; vid.style.width = "140px"; vid.style.height = "105px"; vid.style.opacity = ".85"; }
       }, 400);
       calibrateWebcam();
     } catch (e) {
-      c.innerHTML = `<h2>Caméra indisponible</h2><p class="lead">Impossible d'accéder à la webcam ou de charger le moteur de suivi (permission refusée, pas de caméra, ou connexion bloquée).</p>
-        <div class="btn-row"><button class="btn secondary" data-back2>← Menu</button><button class="btn" id="wc-retry">Réessayer</button></div>`;
-      c.querySelector("[data-back2]").addEventListener("click", goHome);
-      const r = document.getElementById("wc-retry"); if (r) r.addEventListener("click", startWebcam);
+      showWcError("Démarrage impossible", "Le suivi du regard n'a pas pu démarrer. Recharge la page et réessaie.");
     }
   }
   function calibrateWebcam() {
