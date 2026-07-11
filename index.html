@@ -4,56 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="theme-color" content="#4f46e5" />
-  <title>TDAH Oculaire — Test d'attention visuelle</title>
-  <meta name="description" content="Test d'attention visuelle et de poursuite oculaire. Outil de sensibilisation, non diagnostique." />
+  <title>TDAH Oculaire — Batterie d'attention &amp; dépistage</title>
+  <meta name="description" content="Batterie de tests d'attention (Go/No-Go, Stroop, Stop-Signal, suivi oculaire) et questionnaire ASRS. Outil de sensibilisation, non diagnostique." />
   <style>
     :root {
-      --bg: #0f1220;
-      --bg-soft: #171b2e;
-      --card: #1d2238;
-      --card-2: #232945;
-      --text: #eef1ff;
-      --muted: #9aa3c7;
-      --primary: #6366f1;
-      --primary-2: #818cf8;
-      --good: #22c55e;
-      --warn: #f59e0b;
-      --bad: #ef4444;
-      --ring: rgba(99,102,241,.35);
-      --radius: 18px;
-      --shadow: 0 10px 40px rgba(0,0,0,.45);
+      --bg: #0f1220; --bg-soft: #171b2e; --card: #1d2238; --card-2: #232945;
+      --text: #eef1ff; --muted: #9aa3c7; --primary: #6366f1; --primary-2: #818cf8;
+      --good: #22c55e; --warn: #f59e0b; --bad: #ef4444;
+      --ring: rgba(99,102,241,.35); --radius: 18px; --shadow: 0 10px 40px rgba(0,0,0,.45);
     }
     @media (prefers-color-scheme: light) {
       :root {
-        --bg: #eef1fb;
-        --bg-soft: #e4e9f7;
-        --card: #ffffff;
-        --card-2: #f4f6fd;
-        --text: #17203a;
-        --muted: #59618a;
-        --shadow: 0 10px 40px rgba(30,40,90,.12);
+        --bg: #eef1fb; --bg-soft: #e4e9f7; --card: #ffffff; --card-2: #f4f6fd;
+        --text: #17203a; --muted: #59618a; --shadow: 0 10px 40px rgba(30,40,90,.12);
         --ring: rgba(99,102,241,.25);
       }
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html, body { height: 100%; }
     body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background: radial-gradient(1200px 700px at 50% -10%, var(--bg-soft), var(--bg)) fixed;
-      color: var(--text);
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 20px 16px 40px;
-      line-height: 1.5;
+      color: var(--text); min-height: 100dvh; display: flex; flex-direction: column;
+      align-items: center; padding: 20px 16px 48px; line-height: 1.5;
     }
-    .wrap { width: 100%; max-width: 720px; }
-    header.brand {
-      display: flex; align-items: center; gap: 12px; margin: 8px 0 22px;
-    }
+    .wrap { width: 100%; max-width: 760px; }
+    header.brand { display: flex; align-items: center; gap: 12px; margin: 8px 0 20px; }
     .logo {
       width: 42px; height: 42px; border-radius: 12px; flex: none;
       background: linear-gradient(135deg, var(--primary), var(--primary-2));
@@ -63,34 +39,28 @@
     .brand h1 { font-size: 1.15rem; margin: 0; letter-spacing: .2px; }
     .brand p { margin: 0; font-size: .8rem; color: var(--muted); }
     .card {
-      background: var(--card);
-      border: 1px solid rgba(255,255,255,.05);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 26px 22px;
-      margin-bottom: 18px;
+      background: var(--card); border: 1px solid rgba(255,255,255,.05); border-radius: var(--radius);
+      box-shadow: var(--shadow); padding: 24px 22px; margin-bottom: 18px;
     }
-    h2 { margin: 0 0 10px; font-size: 1.35rem; }
-    h3 { margin: 18px 0 8px; font-size: 1rem; }
-    p.lead { color: var(--muted); margin: 0 0 18px; }
+    h2 { margin: 0 0 10px; font-size: 1.3rem; }
+    h3 { margin: 16px 0 8px; font-size: 1rem; }
+    p.lead { color: var(--muted); margin: 0 0 16px; }
     ul.steps { margin: 0 0 8px; padding-left: 18px; color: var(--muted); }
     ul.steps li { margin-bottom: 6px; }
     ul.steps b { color: var(--text); }
     .btn {
       appearance: none; border: none; cursor: pointer;
       background: linear-gradient(135deg, var(--primary), var(--primary-2));
-      color: #fff; font-weight: 700; font-size: 1rem;
-      padding: 14px 22px; border-radius: 14px; width: 100%;
-      box-shadow: 0 8px 24px var(--ring);
-      transition: transform .06s ease, filter .15s ease;
+      color: #fff; font-weight: 700; font-size: 1rem; padding: 13px 20px; border-radius: 13px;
+      width: 100%; box-shadow: 0 8px 24px var(--ring); transition: transform .06s ease, filter .15s ease;
     }
     .btn:active { transform: translateY(1px) scale(.995); }
-    .btn.secondary {
-      background: var(--card-2); color: var(--text);
-      border: 1px solid rgba(255,255,255,.08); box-shadow: none;
-    }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .btn.secondary { background: var(--card-2); color: var(--text); border: 1px solid rgba(255,255,255,.08); box-shadow: none; }
     .btn.ghost { background: transparent; color: var(--muted); box-shadow: none; }
-    .btn-row { display: flex; gap: 10px; margin-top: 8px; }
+    .btn.small { width: auto; padding: 9px 16px; font-size: .9rem; }
+    .btn-row { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+    .btn-row .btn { flex: 1; min-width: 140px; }
     .disclaimer {
       background: color-mix(in srgb, var(--warn) 12%, var(--card));
       border: 1px solid color-mix(in srgb, var(--warn) 40%, transparent);
@@ -98,87 +68,97 @@
     }
     .disclaimer b { color: var(--warn); }
 
-    /* Stage / play area */
+    /* ---- Menu ---- */
+    .modlist { display: grid; gap: 12px; }
+    .mod {
+      display: flex; align-items: center; gap: 14px; text-align: left;
+      background: var(--card-2); border: 1px solid rgba(255,255,255,.05); border-radius: 14px;
+      padding: 14px 16px; cursor: pointer; transition: transform .06s ease, border-color .15s ease;
+      color: var(--text); width: 100%;
+    }
+    .mod:active { transform: scale(.99); }
+    .mod .ic { font-size: 1.7rem; flex: none; width: 40px; text-align: center; }
+    .mod .body { flex: 1; min-width: 0; }
+    .mod .body .t { font-weight: 700; }
+    .mod .body .d { font-size: .8rem; color: var(--muted); }
+    .mod .status { font-size: 1.2rem; flex: none; }
+    .mod .chev { color: var(--muted); flex: none; }
+    .tag { display:inline-block; font-size:.65rem; font-weight:700; padding:1px 7px; border-radius:999px; background: color-mix(in srgb, var(--primary) 25%, transparent); color: var(--primary-2); margin-left:6px; vertical-align: middle;}
+
+    /* ---- Stage ---- */
     .stage {
-      position: relative;
-      width: 100%;
-      height: min(62dvh, 460px);
-      background: var(--card-2);
-      border-radius: var(--radius);
-      overflow: hidden;
-      display: grid; place-items: center;
-      touch-action: manipulation;
-      user-select: none;
+      position: relative; width: 100%; height: min(60dvh, 440px);
+      background: var(--card-2); border-radius: var(--radius); overflow: hidden;
+      display: grid; place-items: center; touch-action: manipulation; user-select: none;
       border: 1px solid rgba(255,255,255,.05);
     }
-    .fixation {
-      font-size: clamp(3.5rem, 16vw, 6rem);
-      font-weight: 800; letter-spacing: 2px;
-    }
-    .cross { font-size: 2.4rem; color: var(--muted); }
+    .fixation { font-size: clamp(3.2rem, 15vw, 5.5rem); font-weight: 800; letter-spacing: 2px; }
+    .arrow { font-size: clamp(4rem, 22vw, 8rem); font-weight: 800; color: var(--text); transition: color .04s; }
+    .arrow.stop { color: var(--bad); }
     .target-dot {
-      position: absolute; width: 46px; height: 46px; border-radius: 50%;
+      position: absolute; width: 44px; height: 44px; border-radius: 50%;
       background: radial-gradient(circle at 35% 30%, var(--primary-2), var(--primary));
-      box-shadow: 0 0 0 6px var(--ring); will-change: left, top; pointer-events: none;
+      box-shadow: 0 0 0 6px var(--ring); pointer-events: none;
     }
-    .target-dot.flash { background: radial-gradient(circle at 35% 30%, #fde68a, var(--warn)); box-shadow: 0 0 0 8px color-mix(in srgb, var(--warn) 45%, transparent); }
-    .hud {
-      position: absolute; top: 10px; left: 0; right: 0;
-      display: flex; justify-content: space-between; padding: 0 14px;
-      font-size: .78rem; color: var(--muted); pointer-events: none;
-    }
-    .progress {
-      position: absolute; bottom: 0; left: 0; height: 5px;
-      background: linear-gradient(90deg, var(--primary), var(--primary-2));
-      transition: width .1s linear;
-    }
-    .feedback-ring {
-      position: absolute; inset: 0; pointer-events: none; opacity: 0;
-      transition: opacity .12s ease; border-radius: var(--radius);
-    }
+    .hud { position: absolute; top: 10px; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 14px; font-size: .78rem; color: var(--muted); pointer-events: none; }
+    .progress { position: absolute; bottom: 0; left: 0; height: 5px; background: linear-gradient(90deg, var(--primary), var(--primary-2)); transition: width .1s linear; }
+    .feedback-ring { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .12s ease; border-radius: var(--radius); }
     .feedback-ring.good { box-shadow: inset 0 0 0 4px var(--good); opacity: .9; }
     .feedback-ring.bad  { box-shadow: inset 0 0 0 4px var(--bad); opacity: .9; }
-    .tap-hint {
-      margin-top: 12px; text-align: center; color: var(--muted); font-size: .85rem;
-    }
-    .big-instruction {
-      text-align: center; padding: 8px 10px;
-    }
+    .tap-hint { margin-top: 12px; text-align: center; color: var(--muted); font-size: .85rem; }
+    .big-instruction { text-align: center; padding: 6px 10px; }
     .big-instruction .rule { font-size: 1.05rem; }
     .big-instruction .rule b { color: var(--primary-2); }
+    .countdown { font-size: clamp(4rem, 22vw, 8rem); font-weight: 800; color: var(--primary-2); }
 
-    .countdown {
-      font-size: clamp(4rem, 22vw, 8rem); font-weight: 800;
-      color: var(--primary-2);
-    }
+    /* answer buttons */
+    .answer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+    .ansbtn { border: none; border-radius: 13px; padding: 18px 10px; font-weight: 800; font-size: 1.05rem; cursor: pointer; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.35); }
+    .ansbtn:active { transform: translateY(1px); }
+    .lr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+    .lrbtn { border: none; border-radius: 13px; padding: 22px 10px; font-weight: 800; font-size: 1.6rem; cursor: pointer; background: var(--card-2); color: var(--text); border: 1px solid rgba(255,255,255,.08); }
+    .lrbtn:active { transform: translateY(1px); }
 
-    /* Results */
-    .score-hero { text-align: center; padding: 8px 0 2px; }
+    /* ---- ASRS ---- */
+    .q { padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .q:last-of-type { border-bottom: none; }
+    .q .qt { font-size: .95rem; margin-bottom: 10px; }
+    .q .qt .num { color: var(--primary-2); font-weight: 800; margin-right: 6px; }
+    .scale { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+    .scale label { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: .62rem; color: var(--muted); cursor: pointer; text-align: center; }
+    .scale input { appearance: none; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--muted); cursor: pointer; transition: .12s; }
+    .scale input:checked { background: var(--primary); border-color: var(--primary); box-shadow: 0 0 0 4px var(--ring); }
+    .partlbl { font-size:.75rem; font-weight:800; color: var(--primary-2); text-transform: uppercase; letter-spacing: .5px; margin: 8px 0; }
+
+    /* ---- Results ---- */
+    .score-hero { text-align: center; padding: 6px 0 2px; }
     .gauge { position: relative; width: 190px; height: 110px; margin: 6px auto 4px; }
     .gauge svg { width: 100%; height: 100%; }
     .gauge .val { position: absolute; bottom: 2px; left: 0; right: 0; text-align: center; }
-    .gauge .val b { font-size: 2.2rem; }
+    .gauge .val b { font-size: 2.1rem; }
     .gauge .val span { color: var(--muted); font-size: .8rem; display: block; }
-    .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0 4px; }
-    @media (max-width: 460px) { .metrics { grid-template-columns: 1fr; } }
-    .metric {
-      background: var(--card-2); border-radius: 14px; padding: 14px;
-      border: 1px solid rgba(255,255,255,.05);
-    }
-    .metric .k { font-size: .78rem; color: var(--muted); display: flex; align-items: center; gap: 6px; }
-    .metric .v { font-size: 1.5rem; font-weight: 800; margin-top: 4px; }
-    .metric .v small { font-size: .8rem; color: var(--muted); font-weight: 600; }
-    .pill { display: inline-block; font-size: .72rem; font-weight: 700; padding: 2px 9px; border-radius: 999px; margin-top: 6px; }
+    .rescard { background: var(--card-2); border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,.05); }
+    .rescard .rh { display: flex; align-items: center; gap: 10px; }
+    .rescard .rh .ic { font-size: 1.3rem; }
+    .rescard .rh .t { font-weight: 700; flex: 1; }
+    .rescard .metrics-line { font-size: .85rem; color: var(--muted); margin-top: 6px; }
+    .rescard .metrics-line b { color: var(--text); }
+    .pill { display: inline-block; font-size: .72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
     .pill.good { background: color-mix(in srgb, var(--good) 20%, transparent); color: var(--good); }
-    .pill.warn { background: color-mix(in srgb, var(--warn) 20%, transparent); color: var(--warn); }
-    .pill.bad  { background: color-mix(in srgb, var(--bad) 20%, transparent); color: var(--bad); }
-    .interpretation { font-size: .9rem; color: var(--text); }
+    .pill.warn { background: color-mix(in srgb, var(--warn) 22%, transparent); color: var(--warn); }
+    .pill.bad  { background: color-mix(in srgb, var(--bad) 22%, transparent); color: var(--bad); }
+    .pill.neutral { background: color-mix(in srgb, var(--muted) 22%, transparent); color: var(--muted); }
+    .interpretation { font-size: .9rem; }
     .interpretation p { margin: 8px 0; }
     footer { color: var(--muted); font-size: .75rem; text-align: center; margin-top: 6px; }
     footer a { color: var(--primary-2); }
     .hidden { display: none !important; }
     .fade { animation: fade .35s ease; }
     @keyframes fade { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: none; } }
+    .backbtn { background: none; border: none; color: var(--muted); font-size: .9rem; cursor: pointer; padding: 0; margin-bottom: 12px; }
+    #webcam-video-wrap { position: fixed; bottom: 8px; right: 8px; z-index: 50; opacity:.9; }
+    .cal-dot { position: absolute; width: 26px; height: 26px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 5px var(--ring); cursor: pointer; display:grid; place-items:center; color:#fff; font-size:.7rem; font-weight:800; transform: translate(-50%,-50%); }
+    .cal-dot.done { background: var(--good); box-shadow: 0 0 0 5px color-mix(in srgb, var(--good) 40%, transparent); }
   </style>
 </head>
 <body>
@@ -186,494 +166,723 @@
     <header class="brand">
       <div class="logo" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/>
-          <circle cx="12" cy="12" r="3"/>
+          <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>
         </svg>
       </div>
       <div>
         <h1>TDAH Oculaire</h1>
-        <p>Test d'attention visuelle &amp; de poursuite</p>
+        <p>Batterie d'attention &amp; dépistage</p>
       </div>
     </header>
 
-    <!-- ===================== INTRO ===================== -->
-    <section id="screen-intro" class="card fade">
-      <h2>Évaluez votre attention visuelle</h2>
-      <p class="lead">Deux mini-tests d'environ 2 minutes au total. Ils mesurent votre capacité à rester concentré et à contrôler vos réactions impulsives.</p>
-
-      <h3>1 · Attention soutenue (Go / No-Go)</h3>
-      <ul class="steps">
-        <li>Des lettres défilent une par une au centre de l'écran.</li>
-        <li><b>Touchez / cliquez</b> à chaque lettre… <b>sauf le « X »</b>.</li>
-        <li>Quand un <b>« X »</b> apparaît : ne faites rien.</li>
-      </ul>
-
-      <h3>2 · Poursuite oculaire</h3>
-      <ul class="steps">
-        <li>Un point se déplace sur l'écran : <b>suivez-le des yeux</b>.</li>
-        <li>Quand il <b>vire à l'orange</b>, touchez / cliquez rapidement.</li>
-      </ul>
-
-      <div class="disclaimer" style="margin:16px 0 18px;">
-        <b>⚠ Important —</b> Ce test est un outil de sensibilisation. Il <b>ne remplace pas</b> un diagnostic médical du TDAH, qui ne peut être posé que par un professionnel de santé.
+    <!-- ================= HOME ================= -->
+    <section id="screen-home" class="card fade">
+      <h2>Batterie de dépistage attentionnel</h2>
+      <p class="lead">Choisis un test, ou lance le parcours complet. Chaque module mesure une facette différente de l'attention et de l'impulsivité.</p>
+      <div class="modlist" id="modlist"></div>
+      <div class="btn-row">
+        <button class="btn" id="btn-all">▶ Parcours complet</button>
+        <button class="btn secondary" id="btn-results" disabled>Voir la synthèse</button>
       </div>
-
-      <button class="btn" id="btn-start">Commencer</button>
-      <div class="tap-hint">Sur ordinateur, la barre <b>Espace</b> fonctionne aussi.</div>
+      <div class="disclaimer" style="margin-top:16px;">
+        <b>⚠ Important —</b> Outil éducatif de sensibilisation. Il <b>ne remplace pas</b> un diagnostic, qui ne peut être posé que par un professionnel de santé. Aucune donnée n'est envoyée : tout reste sur ton appareil (y compris la vidéo de la webcam).
+      </div>
     </section>
 
-    <!-- ===================== COUNTDOWN ===================== -->
+    <!-- ================= COUNTDOWN ================= -->
     <section id="screen-countdown" class="card hidden">
       <div class="big-instruction" id="countdown-instruction"></div>
-      <div class="stage">
-        <div class="countdown" id="countdown-num">3</div>
+      <div class="stage"><div class="countdown" id="countdown-num">3</div></div>
+    </section>
+
+    <!-- ================= ASRS ================= -->
+    <section id="screen-asrs" class="card hidden">
+      <button class="backbtn" data-back>← Menu</button>
+      <h2>Questionnaire ASRS v1.1</h2>
+      <p class="lead">Auto-évaluation des symptômes des 6 derniers mois (échelle de l'OMS). Réponds spontanément.</p>
+      <div id="asrs-questions"></div>
+      <button class="btn" id="asrs-submit" style="margin-top:16px;">Valider mes réponses</button>
+    </section>
+
+    <!-- ================= GO / NO-GO ================= -->
+    <section id="screen-gonogo" class="card hidden">
+      <div class="big-instruction"><div class="rule">Touche à chaque lettre — <b>sauf le « X »</b></div></div>
+      <div class="stage" id="gonogo-stage" role="button" tabindex="0" aria-label="Zone de test">
+        <div class="hud"><span id="gng-count">0 / 0</span><span>Attention soutenue</span></div>
+        <div class="fixation" id="gng-stimulus"></div>
+        <div class="feedback-ring" id="gng-ring"></div>
+        <div class="progress" id="gng-progress" style="width:0%"></div>
+      </div>
+      <div class="tap-hint">Reste concentré… ne te laisse pas piéger par le « X ».</div>
+    </section>
+
+    <!-- ================= STROOP ================= -->
+    <section id="screen-stroop" class="card hidden">
+      <div class="big-instruction"><div class="rule">Indique la <b>couleur de l'encre</b> — pas le mot</div></div>
+      <div class="stage" id="stroop-stage">
+        <div class="hud"><span id="stroop-count">0 / 0</span><span>Stroop</span></div>
+        <div class="fixation" id="stroop-word" style="font-size:clamp(2.4rem,11vw,4rem)"></div>
+        <div class="feedback-ring" id="stroop-ring"></div>
+        <div class="progress" id="stroop-progress" style="width:0%"></div>
+      </div>
+      <div class="answer-grid" id="stroop-answers"></div>
+    </section>
+
+    <!-- ================= STOP-SIGNAL ================= -->
+    <section id="screen-stop" class="card hidden">
+      <div class="big-instruction"><div class="rule">Sens de la flèche — sauf si elle devient <b style="color:var(--bad)">rouge</b> (stop)</div></div>
+      <div class="stage" id="stop-stage">
+        <div class="hud"><span id="stop-count">0 / 0</span><span>Stop-Signal</span></div>
+        <div class="arrow" id="stop-arrow"></div>
+        <div class="feedback-ring" id="stop-ring"></div>
+        <div class="progress" id="stop-progress" style="width:0%"></div>
+      </div>
+      <div class="lr-grid">
+        <button class="lrbtn" id="stop-left">◀</button>
+        <button class="lrbtn" id="stop-right">▶</button>
       </div>
     </section>
 
-    <!-- ===================== TEST 1 ===================== -->
-    <section id="screen-test1" class="card hidden">
-      <div class="big-instruction">
-        <div class="rule">Touchez à chaque lettre — <b>sauf le « X »</b></div>
-      </div>
-      <div class="stage" id="stage1" role="button" tabindex="0" aria-label="Zone de test">
-        <div class="hud"><span id="t1-count">0 / 0</span><span id="t1-label">Attention soutenue</span></div>
-        <div class="fixation" id="t1-stimulus"></div>
-        <div class="feedback-ring" id="t1-ring"></div>
-        <div class="progress" id="t1-progress" style="width:0%"></div>
-      </div>
-      <div class="tap-hint">Restez concentré… ne vous laissez pas piéger par le « X ».</div>
+    <!-- ================= WEBCAM ================= -->
+    <section id="screen-webcam" class="card hidden">
+      <button class="backbtn" data-back>← Menu</button>
+      <div id="webcam-content"></div>
     </section>
 
-    <!-- ===================== TEST 2 ===================== -->
-    <section id="screen-test2" class="card hidden">
-      <div class="big-instruction">
-        <div class="rule">Suivez le point — touchez quand il devient <b style="color:var(--warn)">orange</b></div>
-      </div>
-      <div class="stage" id="stage2" role="button" tabindex="0" aria-label="Zone de test">
-        <div class="hud"><span id="t2-count">0 / 0</span><span id="t2-label">Poursuite oculaire</span></div>
-        <div class="target-dot" id="t2-dot" style="left:50%; top:50%;"></div>
-        <div class="feedback-ring" id="t2-ring"></div>
-        <div class="progress" id="t2-progress" style="width:0%"></div>
-      </div>
-      <div class="tap-hint">Gardez les yeux sur le point et anticipez le changement de couleur.</div>
-    </section>
-
-    <!-- ===================== RESULTS ===================== -->
+    <!-- ================= RESULTS ================= -->
     <section id="screen-results" class="card hidden">
       <div class="score-hero">
-        <div style="color:var(--muted);font-size:.85rem;">Score global d'attention</div>
+        <div style="color:var(--muted);font-size:.85rem;">Indice de signaux évocateurs</div>
         <div class="gauge">
           <svg viewBox="0 0 200 115">
             <path d="M15 105 A85 85 0 0 1 185 105" fill="none" stroke="var(--card-2)" stroke-width="16" stroke-linecap="round"/>
             <path id="gauge-arc" d="M15 105 A85 85 0 0 1 185 105" fill="none" stroke="var(--primary)" stroke-width="16" stroke-linecap="round" stroke-dasharray="267" stroke-dashoffset="267"/>
           </svg>
-          <div class="val"><b id="global-score">–</b><span>sur 100</span></div>
+          <div class="val"><b id="global-score">–</b><span id="global-sub">tests complétés</span></div>
         </div>
         <div id="global-pill"></div>
       </div>
-
-      <div class="metrics" id="metrics"></div>
-
+      <div id="results-cards" style="margin-top:14px;"></div>
       <div class="interpretation" id="interpretation"></div>
-
-      <div class="disclaimer" style="margin:16px 0 18px;">
-        <b>⚠ Rappel —</b> Ces résultats ne constituent pas un diagnostic. Si l'attention ou l'impulsivité affectent votre quotidien, parlez-en à un médecin, un psychiatre ou un neuropsychologue.
+      <div class="disclaimer" style="margin:16px 0 14px;">
+        <b>⚠ Rappel —</b> Ces résultats ne constituent pas un diagnostic. Si l'attention ou l'impulsivité affectent ton quotidien, parles-en à un médecin, un psychiatre ou un neuropsychologue.
       </div>
-
       <div class="btn-row">
-        <button class="btn secondary" id="btn-restart">Refaire le test</button>
+        <button class="btn secondary" id="btn-home2">← Menu</button>
         <button class="btn" id="btn-share">Partager</button>
       </div>
     </section>
 
-    <footer>
-      TDAH Oculaire · outil éducatif open-source · aucune donnée n'est envoyée, tout reste sur votre appareil.
-    </footer>
+    <footer>TDAH Oculaire · outil éducatif open-source · aucune donnée n'est envoyée, tout reste sur ton appareil.</footer>
   </div>
 
 <script>
 (() => {
   "use strict";
-
   const $ = (id) => document.getElementById(id);
-  const screens = {
-    intro: $("screen-intro"),
-    countdown: $("screen-countdown"),
-    test1: $("screen-test1"),
-    test2: $("screen-test2"),
-    results: $("screen-results"),
-  };
+  const now = () => performance.now();
+  const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+  const mean = (a) => a.length ? a.reduce((x, y) => x + y, 0) / a.length : 0;
+  const stdev = (a) => { if (a.length < 2) return 0; const m = mean(a); return Math.sqrt(a.reduce((s, x) => s + (x - m) * (x - m), 0) / (a.length - 1)); };
+  const pick = (a) => a[Math.floor(Math.random() * a.length)];
+
+  const screens = ["home","countdown","asrs","gonogo","stroop","stop","webcam","results"];
   function show(name) {
-    Object.values(screens).forEach(s => s.classList.add("hidden"));
-    screens[name].classList.remove("hidden");
-    screens[name].classList.remove("fade"); void screens[name].offsetWidth;
-    screens[name].classList.add("fade");
+    screens.forEach(s => $("screen-" + s).classList.add("hidden"));
+    const el = $("screen-" + name);
+    el.classList.remove("hidden");
+    el.classList.remove("fade"); void el.offsetWidth; el.classList.add("fade");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
-  const now = () => performance.now();
 
-  // ---------- shared results store ----------
-  const R = { t1: null, t2: null };
+  const RESULTS = {};       // moduleId -> result object
+  let runQueue = [];        // for "parcours complet"
 
-  // ================= TEST 1 : Go / No-Go (CPT) =================
-  const T1 = {
-    total: 40,          // number of stimuli
-    noGoRatio: 0.25,    // proportion of "X" (no-go)
-    stimMs: 350,        // stimulus visible
-    gapMs: 900,         // total per trial (stimulus + blank)
-    letters: "ABCDEFGHKLMNPRSTUVWZ".split(""),
-    seq: [], idx: 0,
-    shownAt: 0, responded: false, running: false, timer: null,
-    hits: 0, omissions: 0, commissions: 0, correctRejections: 0,
-    rts: [],
-  };
+  // module registry
+  const MODULES = [
+    { id: "asrs",   ic: "📝", name: "Questionnaire ASRS v1.1", dur: "~3 min", tag: "OMS", start: () => startAsrs() },
+    { id: "gonogo", ic: "🎯", name: "Attention soutenue (Go/No-Go)", dur: "~1 min", start: () => launchGoNoGo() },
+    { id: "stroop", ic: "🎨", name: "Test de Stroop", dur: "~1 min", start: () => launchStroop() },
+    { id: "stop",   ic: "✋", name: "Test Stop-Signal", dur: "~2 min", start: () => launchStop() },
+    { id: "webcam", ic: "👁️", name: "Suivi oculaire (webcam)", dur: "~2 min", start: () => startWebcam() },
+  ];
 
-  function buildSeq() {
-    T1.seq = [];
-    const noGoCount = Math.round(T1.total * T1.noGoRatio);
-    for (let i = 0; i < T1.total; i++) T1.seq.push(i < noGoCount ? "X" : pick(T1.letters));
-    // Fisher–Yates shuffle, but avoid two X in a row where possible
-    for (let i = T1.seq.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [T1.seq[i], T1.seq[j]] = [T1.seq[j], T1.seq[i]];
-    }
-    for (let i = 1; i < T1.seq.length; i++) {
-      if (T1.seq[i] === "X" && T1.seq[i-1] === "X") {
-        for (let k = 0; k < T1.seq.length; k++) {
-          if (T1.seq[k] !== "X" && (k === 0 || T1.seq[k-1] !== "X") && (k === T1.seq.length-1 || T1.seq[k+1] !== "X")) {
-            [T1.seq[i], T1.seq[k]] = [T1.seq[k], T1.seq[i]]; break;
-          }
-        }
-      }
-    }
-  }
-  function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
-
-  function startTest1() {
-    Object.assign(T1, { idx: 0, hits: 0, omissions: 0, commissions: 0, correctRejections: 0, rts: [], running: true });
-    buildSeq();
-    nextTrial1();
-  }
-  function nextTrial1() {
-    if (T1.idx >= T1.seq.length) return endTest1();
-    const stim = T1.seq[T1.idx];
-    T1.responded = false;
-    T1.shownAt = now();
-    $("t1-stimulus").textContent = stim;
-    $("t1-stimulus").style.color = "var(--text)";
-    $("t1-count").textContent = `${T1.idx + 1} / ${T1.total}`;
-    $("t1-progress").style.width = ((T1.idx) / T1.total * 100) + "%";
-
-    T1.timer = setTimeout(() => {
-      $("t1-stimulus").textContent = "";       // blank period
-      T1.stimVisible = false;
-      T1.timer = setTimeout(() => {
-        // grade end of trial
-        const isNoGo = stim === "X";
-        if (!T1.responded) {
-          if (isNoGo) T1.correctRejections++;    // correctly withheld
-          else { T1.omissions++; }               // missed a go
-        }
-        T1.idx++;
-        nextTrial1();
-      }, T1.gapMs - T1.stimMs);
-    }, T1.stimMs);
-    T1.stimVisible = true;
-  }
-  function respondTest1() {
-    if (!T1.running || T1.responded) return;
-    if (T1.idx >= T1.seq.length) return;
-    T1.responded = true;
-    const stim = T1.seq[T1.idx];
-    const rt = now() - T1.shownAt;
-    const ring = $("t1-ring");
-    if (stim === "X") {                 // should NOT have responded
-      T1.commissions++;
-      flashRing(ring, "bad");
-    } else {                            // correct go
-      T1.hits++;
-      T1.rts.push(rt);
-      flashRing(ring, "good");
-    }
-  }
-  function endTest1() {
-    T1.running = false;
-    clearTimeout(T1.timer);
-    $("t1-progress").style.width = "100%";
-    const goTotal = T1.hits + T1.omissions;
-    const noGoTotal = T1.commissions + T1.correctRejections;
-    const meanRT = T1.rts.length ? T1.rts.reduce((a,b)=>a+b,0) / T1.rts.length : 0;
-    const sd = stdev(T1.rts);
-    R.t1 = {
-      hits: T1.hits, omissions: T1.omissions, commissions: T1.commissions,
-      correctRejections: T1.correctRejections, goTotal, noGoTotal,
-      meanRT: Math.round(meanRT), rtVariability: Math.round(sd),
-    };
-    // brief pause then test 2
-    setTimeout(() => launchTest2(), 500);
+  function renderMenu() {
+    $("modlist").innerHTML = MODULES.map(m => `
+      <button class="mod" data-mod="${m.id}">
+        <div class="ic">${m.ic}</div>
+        <div class="body">
+          <div class="t">${m.name}${m.tag ? `<span class="tag">${m.tag}</span>` : ""}</div>
+          <div class="d">${m.dur}</div>
+        </div>
+        <div class="status">${RESULTS[m.id] ? "✅" : ""}</div>
+        <div class="chev">›</div>
+      </button>`).join("");
+    document.querySelectorAll("[data-mod]").forEach(b =>
+      b.addEventListener("click", () => { runQueue = []; MODULES.find(m => m.id === b.dataset.mod).start(); }));
+    $("btn-results").disabled = Object.keys(RESULTS).length === 0;
   }
 
-  // ================= TEST 2 : Smooth pursuit =================
-  const T2 = {
-    durationMs: 45000,   // total tracking time
-    flashCount: 8,       // number of colour-change targets
-    flashMs: 700,        // how long the flash stays orange & responsive
-    running: false, startAt: 0, raf: null,
-    dot: null, stage: null, w: 0, h: 0,
-    // path params
-    t: 0,
-    flashes: [], nextFlashIdx: 0, flashActive: false, flashShownAt: 0,
-    hits: 0, misses: 0, falseAlarms: 0, rts: [],
-    margin: 40,
-  };
+  function finishModule(id, data) {
+    RESULTS[id] = data;
+    stopWebgazerSoft();
+    if (runQueue.length) { const next = runQueue.shift(); MODULES.find(m => m.id === next).start(); }
+    else { renderMenu(); showResults(); }
+  }
+  function goHome() { stopWebgazerSoft(); renderMenu(); show("home"); }
 
-  function launchTest2() {
-    countdown("Test 2 · Poursuite oculaire", "Suivez le point des yeux", () => startTest2());
-  }
-  function startTest2() {
-    show("test2");
-    T2.stage = $("stage2"); T2.dot = $("t2-dot");
-    const r = T2.stage.getBoundingClientRect();
-    T2.w = r.width; T2.h = r.height;
-    Object.assign(T2, {
-      running: true, startAt: now(), t: 0, nextFlashIdx: 0,
-      flashActive: false, hits: 0, misses: 0, falseAlarms: 0, rts: [],
-    });
-    // schedule flash times (avoid very start/end)
-    T2.flashes = [];
-    for (let i = 0; i < T2.flashCount; i++) {
-      const frac = (i + 0.5 + (Math.random()*0.5 - 0.25)) / T2.flashCount;
-      T2.flashes.push(Math.max(1500, Math.min(T2.durationMs - 1200, frac * T2.durationMs)));
-    }
-    T2.flashes.sort((a,b)=>a-b);
-    $("t2-count").textContent = `0 / ${T2.flashCount}`;
-    animateT2();
-  }
-  function dotPos(elapsed) {
-    // Lissajous-style smooth path, slow enough to follow
-    const pad = T2.margin, dotR = 23;
-    const availW = Math.max(40, T2.w - pad*2 - dotR*2);
-    const availH = Math.max(40, T2.h - pad*2 - dotR*2);
-    const a = elapsed / 3400;   // x frequency
-    const b = elapsed / 5300;   // y frequency
-    const x = pad + dotR + (Math.sin(a) * 0.5 + 0.5) * availW;
-    const y = pad + dotR + (Math.sin(b) * 0.5 + 0.5) * availH;
-    return { x, y };
-  }
-  function animateT2() {
-    if (!T2.running) return;
-    const elapsed = now() - T2.startAt;
-    T2.t = elapsed;
-    const p = dotPos(elapsed);
-    T2.dot.style.left = p.x + "px";
-    T2.dot.style.top = p.y + "px";
-    T2.dot.style.transform = "translate(-50%, -50%)";
-    $("t2-progress").style.width = Math.min(100, elapsed / T2.durationMs * 100) + "%";
+  document.querySelectorAll("[data-back]").forEach(b => b.addEventListener("click", goHome));
+  $("btn-home2").addEventListener("click", goHome);
+  $("btn-results").addEventListener("click", showResults);
+  $("btn-all").addEventListener("click", () => {
+    runQueue = MODULES.map(m => m.id);
+    const first = runQueue.shift();
+    MODULES.find(m => m.id === first).start();
+  });
 
-    // handle flashes
-    if (!T2.flashActive && T2.nextFlashIdx < T2.flashes.length && elapsed >= T2.flashes[T2.nextFlashIdx]) {
-      T2.flashActive = true; T2.flashShownAt = elapsed;
-      T2.dot.classList.add("flash");
-    }
-    if (T2.flashActive && elapsed - T2.flashShownAt > T2.flashMs) {
-      // missed it
-      T2.flashActive = false; T2.nextFlashIdx++;
-      T2.misses++;
-      T2.dot.classList.remove("flash");
-      updateT2Count();
-    }
-
-    if (elapsed >= T2.durationMs) return endTest2();
-    T2.raf = requestAnimationFrame(animateT2);
-  }
-  function respondTest2() {
-    if (!T2.running) return;
-    if (T2.flashActive) {
-      const rt = T2.t - T2.flashShownAt;
-      T2.hits++; T2.rts.push(rt);
-      T2.flashActive = false; T2.nextFlashIdx++;
-      T2.dot.classList.remove("flash");
-      flashRing($("t2-ring"), "good");
-      updateT2Count();
-    } else {
-      T2.falseAlarms++;
-      flashRing($("t2-ring"), "bad");
-    }
-  }
-  function updateT2Count() {
-    $("t2-count").textContent = `${T2.hits} / ${T2.flashCount}`;
-  }
-  function endTest2() {
-    T2.running = false;
-    cancelAnimationFrame(T2.raf);
-    T2.dot.classList.remove("flash");
-    $("t2-progress").style.width = "100%";
-    const meanRT = T2.rts.length ? T2.rts.reduce((a,b)=>a+b,0)/T2.rts.length : 0;
-    R.t2 = {
-      hits: T2.hits, misses: T2.misses, falseAlarms: T2.falseAlarms,
-      total: T2.flashCount, meanRT: Math.round(meanRT), rtVariability: Math.round(stdev(T2.rts)),
-    };
-    setTimeout(showResults, 400);
-  }
-
-  // ================= helpers =================
-  function stdev(arr) {
-    if (arr.length < 2) return 0;
-    const m = arr.reduce((a,b)=>a+b,0)/arr.length;
-    return Math.sqrt(arr.reduce((a,b)=>a+(b-m)*(b-m),0)/(arr.length-1));
-  }
-  function flashRing(el, cls) {
-    el.className = "feedback-ring " + cls;
-    setTimeout(() => { el.className = "feedback-ring"; }, 200);
-  }
-  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
-
-  // ================= countdown =================
+  // ---------- shared countdown ----------
   function countdown(title, subtitle, done) {
     show("countdown");
-    $("countdown-instruction").innerHTML =
-      `<h2 style="margin-bottom:6px">${title}</h2><div class="rule" style="color:var(--muted)">${subtitle}</div>`;
-    let n = 3;
-    $("countdown-num").textContent = n;
+    $("countdown-instruction").innerHTML = `<h2 style="margin-bottom:6px">${title}</h2><div class="rule" style="color:var(--muted)">${subtitle}</div>`;
+    let n = 3; $("countdown-num").textContent = n;
     const iv = setInterval(() => {
       n--;
-      if (n <= 0) {
-        clearInterval(iv);
-        $("countdown-num").textContent = "Go";
-        setTimeout(done, 500);
-      } else {
-        $("countdown-num").textContent = n;
-      }
-    }, 850);
+      if (n <= 0) { clearInterval(iv); $("countdown-num").textContent = "Go"; setTimeout(done, 500); }
+      else $("countdown-num").textContent = n;
+    }, 800);
+  }
+  function flashRing(el, cls) { el.className = "feedback-ring " + cls; setTimeout(() => { el.className = "feedback-ring"; }, 180); }
+
+  /* ==================================================================
+     MODULE 1 — ASRS v1.1
+     ================================================================== */
+  const ASRS_Q = [
+    // Part A (screener) : items 0-5
+    "Avez-vous des difficultés à finaliser les derniers détails d'un projet, une fois les parties stimulantes terminées ?",
+    "Avez-vous des difficultés à mettre les choses en ordre pour accomplir une tâche qui demande de l'organisation ?",
+    "Avez-vous des difficultés à vous souvenir de vos rendez-vous ou de vos obligations ?",
+    "Lorsqu'une tâche demande beaucoup de réflexion, évitez-vous de la commencer ou la remettez-vous à plus tard ?",
+    "Remuez-vous ou gigotez-vous des mains ou des pieds lorsque vous devez rester assis longtemps ?",
+    "Vous sentez-vous excessivement actif, obligé de faire des choses, comme « monté sur ressorts » ?",
+    // Part B : items 6-17
+    "Faites-vous des erreurs d'inattention sur un projet ennuyeux ou difficile ?",
+    "Avez-vous du mal à rester attentif lors d'un travail ennuyeux ou répétitif ?",
+    "Avez-vous du mal à vous concentrer sur ce qu'on vous dit, même en s'adressant directement à vous ?",
+    "Égarez-vous ou avez-vous du mal à retrouver des objets à la maison ou au travail ?",
+    "Êtes-vous distrait par l'activité ou le bruit autour de vous ?",
+    "Quittez-vous votre siège en réunion ou dans des situations où vous devriez rester assis ?",
+    "Vous sentez-vous agité ou fébrile ?",
+    "Avez-vous du mal à vous détendre quand vous avez du temps pour vous ?",
+    "Vous surprenez-vous à trop parler en société ?",
+    "En conversation, terminez-vous les phrases des autres avant qu'ils aient fini ?",
+    "Avez-vous du mal à attendre votre tour quand il faut faire la queue ?",
+    "Interrompez-vous les autres lorsqu'ils sont occupés ?",
+  ];
+  const ASRS_LABELS = ["Jamais", "Rarement", "Parfois", "Souvent", "Très souvent"];
+  // official Part A thresholds: items 0-2 count at "Parfois"(2), items 3-5 at "Souvent"(3)
+  const ASRS_PARTA_THRESH = [2, 2, 2, 3, 3, 3];
+
+  function startAsrs() {
+    const html = ASRS_Q.map((q, i) => {
+      const part = i === 0 ? `<div class="partlbl">Partie A · dépistage</div>` : (i === 6 ? `<div class="partlbl">Partie B · symptômes complémentaires</div>` : "");
+      const opts = ASRS_LABELS.map((lab, v) =>
+        `<label><input type="radio" name="asrs${i}" value="${v}"><span>${lab}</span></label>`).join("");
+      return `${part}<div class="q"><div class="qt"><span class="num">${i + 1}.</span>${q}</div><div class="scale">${opts}</div></div>`;
+    }).join("");
+    $("asrs-questions").innerHTML = html;
+    show("asrs");
+  }
+  $("asrs-submit").addEventListener("click", () => {
+    const ans = [];
+    for (let i = 0; i < ASRS_Q.length; i++) {
+      const sel = document.querySelector(`input[name="asrs${i}"]:checked`);
+      ans.push(sel ? parseInt(sel.value, 10) : null);
+    }
+    const missing = ans.filter(a => a === null).length;
+    if (missing > 0) { alert(`Il reste ${missing} question(s) sans réponse.`); return; }
+    let partA = 0;
+    for (let i = 0; i < 6; i++) if (ans[i] >= ASRS_PARTA_THRESH[i]) partA++;
+    // inattention items (approx): 0,1,2,6,7,8,9,10 ; hyperactivity/impulsivity: 3,4,5,11..17
+    const inattIdx = [0,1,2,6,7,8,9,10], hyperIdx = [3,4,5,11,12,13,14,15,16,17];
+    const inatt = inattIdx.reduce((s, i) => s + ans[i], 0);
+    const hyper = hyperIdx.reduce((s, i) => s + ans[i], 0);
+    const total = ans.reduce((s, a) => s + a, 0);
+    finishModule("asrs", { partA, positive: partA >= 4, inatt, hyper, inattMax: inattIdx.length * 4, hyperMax: hyperIdx.length * 4, total, max: ASRS_Q.length * 4 });
+  });
+
+  /* ==================================================================
+     MODULE 2 — Go / No-Go (CPT)
+     ================================================================== */
+  const GNG = { total: 40, noGoRatio: 0.25, stimMs: 350, gapMs: 900, letters: "ABCDEFGHKLMNPRSTUVWZ".split("") };
+  let gng = null;
+  function launchGoNoGo() {
+    countdown("Attention soutenue", "Touche à chaque lettre sauf le « X »", () => { show("gonogo"); startGoNoGo(); });
+  }
+  function startGoNoGo() {
+    gng = { seq: [], idx: 0, shownAt: 0, responded: false, running: true, timer: null, hits: 0, omissions: 0, commissions: 0, correctRej: 0, rts: [] };
+    const noGo = Math.round(GNG.total * GNG.noGoRatio);
+    for (let i = 0; i < GNG.total; i++) gng.seq.push(i < noGo ? "X" : pick(GNG.letters));
+    for (let i = gng.seq.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [gng.seq[i], gng.seq[j]] = [gng.seq[j], gng.seq[i]]; }
+    for (let i = 1; i < gng.seq.length; i++) if (gng.seq[i] === "X" && gng.seq[i-1] === "X")
+      for (let k = 0; k < gng.seq.length; k++) if (gng.seq[k] !== "X" && (k===0||gng.seq[k-1]!=="X") && (k===gng.seq.length-1||gng.seq[k+1]!=="X")) { [gng.seq[i], gng.seq[k]] = [gng.seq[k], gng.seq[i]]; break; }
+    nextTrialGNG();
+  }
+  function nextTrialGNG() {
+    if (!gng.running) return;
+    if (gng.idx >= gng.seq.length) return endGoNoGo();
+    const stim = gng.seq[gng.idx];
+    gng.responded = false; gng.shownAt = now();
+    $("gng-stimulus").textContent = stim;
+    $("gng-count").textContent = `${gng.idx + 1} / ${GNG.total}`;
+    $("gng-progress").style.width = (gng.idx / GNG.total * 100) + "%";
+    gng.timer = setTimeout(() => {
+      $("gng-stimulus").textContent = "";
+      gng.timer = setTimeout(() => {
+        if (!gng.responded) { if (stim === "X") gng.correctRej++; else gng.omissions++; }
+        gng.idx++; nextTrialGNG();
+      }, GNG.gapMs - GNG.stimMs);
+    }, GNG.stimMs);
+  }
+  function respondGNG() {
+    if (!gng || !gng.running || gng.responded || gng.idx >= gng.seq.length) return;
+    gng.responded = true;
+    const stim = gng.seq[gng.idx];
+    if (stim === "X") { gng.commissions++; flashRing($("gng-ring"), "bad"); }
+    else { gng.hits++; gng.rts.push(now() - gng.shownAt); flashRing($("gng-ring"), "good"); }
+  }
+  function endGoNoGo() {
+    gng.running = false; clearTimeout(gng.timer); $("gng-progress").style.width = "100%";
+    finishModule("gonogo", {
+      omissions: gng.omissions, commissions: gng.commissions,
+      goTotal: gng.hits + gng.omissions, noGoTotal: gng.commissions + gng.correctRej,
+      meanRT: Math.round(mean(gng.rts)), rtVar: Math.round(stdev(gng.rts)),
+    });
+  }
+  $("gonogo-stage").addEventListener("pointerdown", (e) => { e.preventDefault(); respondGNG(); });
+
+  /* ==================================================================
+     MODULE 3 — Stroop
+     ================================================================== */
+  const STROOP_COLORS = [
+    { key: "rouge", name: "ROUGE", hex: "#ef4444" },
+    { key: "vert",  name: "VERT",  hex: "#22c55e" },
+    { key: "bleu",  name: "BLEU",  hex: "#3b82f6" },
+    { key: "jaune", name: "JAUNE", hex: "#eab308" },
+  ];
+  const STROOP_N = 30;
+  let stroop = null;
+  function launchStroop() {
+    countdown("Test de Stroop", "Touche la COULEUR de l'encre, pas le mot", () => { show("stroop"); startStroop(); });
+  }
+  function startStroop() {
+    // build answer buttons
+    $("stroop-answers").innerHTML = STROOP_COLORS.map(c =>
+      `<button class="ansbtn" data-col="${c.key}" style="background:${c.hex};${c.key==='jaune'?'color:#1a1a1a;text-shadow:none;':''}">${c.name}</button>`).join("");
+    document.querySelectorAll("#stroop-answers .ansbtn").forEach(b =>
+      b.addEventListener("click", () => respondStroop(b.dataset.col)));
+    stroop = { idx: 0, running: true, shownAt: 0, answered: false, cur: null, congRT: [], incongRT: [], errors: 0, correct: 0 };
+    nextStroop();
+  }
+  function nextStroop() {
+    if (!stroop.running) return;
+    if (stroop.idx >= STROOP_N) return endStroop();
+    const congruent = Math.random() < 0.5;
+    const ink = pick(STROOP_COLORS);
+    let word = ink;
+    if (!congruent) { do { word = pick(STROOP_COLORS); } while (word.key === ink.key); }
+    stroop.cur = { ink, word, congruent }; stroop.answered = false; stroop.shownAt = now();
+    const w = $("stroop-word");
+    w.textContent = word.name; w.style.color = ink.hex;
+    $("stroop-count").textContent = `${stroop.idx + 1} / ${STROOP_N}`;
+    $("stroop-progress").style.width = (stroop.idx / STROOP_N * 100) + "%";
+  }
+  function respondStroop(colKey) {
+    if (!stroop || !stroop.running || stroop.answered) return;
+    stroop.answered = true;
+    const rt = now() - stroop.shownAt;
+    const correct = colKey === stroop.cur.ink.key;
+    if (correct) { stroop.correct++; (stroop.cur.congruent ? stroop.congRT : stroop.incongRT).push(rt); flashRing($("stroop-ring"), "good"); }
+    else { stroop.errors++; flashRing($("stroop-ring"), "bad"); }
+    stroop.idx++;
+    setTimeout(nextStroop, 250);
+  }
+  function endStroop() {
+    stroop.running = false; $("stroop-progress").style.width = "100%";
+    const cong = Math.round(mean(stroop.congRT)), incong = Math.round(mean(stroop.incongRT));
+    finishModule("stroop", {
+      congRT: cong, incongRT: incong, interference: incong - cong,
+      errors: stroop.errors, correct: stroop.correct, total: STROOP_N,
+    });
   }
 
-  // ================= results & scoring =================
+  /* ==================================================================
+     MODULE 4 — Stop-Signal (SSRT)
+     ================================================================== */
+  const STOP = { total: 40, stopRatio: 0.28, windowMs: 1200, itiMs: 700 };
+  let stop = null;
+  function launchStop() {
+    countdown("Test Stop-Signal", "Flèche = son sens · Rouge = ne rien faire", () => { show("stop"); startStop(); });
+  }
+  function startStop() {
+    stop = {
+      seq: [], idx: 0, running: true, ssd: 250, respAllowed: false, responded: false, isStop: false,
+      stopShown: false, stimAt: 0, dir: null, timer: null, stopTimer: null,
+      goRTs: [], goCorrect: 0, goError: 0, stopSuccess: 0, stopFail: 0, ssds: [],
+    };
+    const nStop = Math.round(STOP.total * STOP.stopRatio);
+    for (let i = 0; i < STOP.total; i++) stop.seq.push(i < nStop ? "stop" : "go");
+    for (let i = stop.seq.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [stop.seq[i], stop.seq[j]] = [stop.seq[j], stop.seq[i]]; }
+    // avoid a stop trial first
+    if (stop.seq[0] === "stop") { const gi = stop.seq.indexOf("go"); [stop.seq[0], stop.seq[gi]] = [stop.seq[gi], stop.seq[0]]; }
+    nextStopTrial();
+  }
+  function nextStopTrial() {
+    if (!stop.running) return;
+    if (stop.idx >= STOP.total) return endStop();
+    stop.isStop = stop.seq[stop.idx] === "stop";
+    stop.responded = false; stop.respAllowed = true; stop.stopShown = false;
+    stop.dir = Math.random() < 0.5 ? "left" : "right";
+    stop.stimAt = now();
+    const a = $("stop-arrow");
+    a.textContent = stop.dir === "left" ? "◀" : "▶";
+    a.className = "arrow";
+    $("stop-count").textContent = `${stop.idx + 1} / ${STOP.total}`;
+    $("stop-progress").style.width = (stop.idx / STOP.total * 100) + "%";
+    if (stop.isStop) {
+      stop.stopTimer = setTimeout(() => {
+        if (!stop.running || stop.responded) return;
+        stop.stopShown = true; a.className = "arrow stop";
+      }, stop.ssd);
+    }
+    stop.timer = setTimeout(() => endStopTrial(), STOP.windowMs);
+  }
+  function respondStop(dir) {
+    if (!stop || !stop.running || !stop.respAllowed || stop.responded) return;
+    stop.responded = true;
+    const rt = now() - stop.stimAt;
+    if (stop.isStop) {
+      // failed to inhibit
+      stop.stopFail++; stop.ssds.push(stop.ssd);
+      stop.ssd = clamp(stop.ssd - 50, 50, 900);
+      flashRing($("stop-ring"), "bad");
+    } else {
+      if (dir === stop.dir) { stop.goCorrect++; stop.goRTs.push(rt); flashRing($("stop-ring"), "good"); }
+      else { stop.goError++; flashRing($("stop-ring"), "bad"); }
+    }
+  }
+  function endStopTrial() {
+    clearTimeout(stop.timer); clearTimeout(stop.stopTimer);
+    stop.respAllowed = false;
+    if (stop.isStop && !stop.responded) {
+      // successful inhibition
+      stop.stopSuccess++; stop.ssds.push(stop.ssd);
+      stop.ssd = clamp(stop.ssd + 50, 50, 900);
+    } else if (!stop.isStop && !stop.responded) {
+      stop.goError++; // omission
+    }
+    stop.idx++;
+    setTimeout(nextStopTrial, STOP.itiMs);
+  }
+  function endStop() {
+    stop.running = false; $("stop-progress").style.width = "100%";
+    const meanGoRT = mean(stop.goRTs);
+    const meanSSD = mean(stop.ssds);
+    const ssrt = Math.max(0, Math.round(meanGoRT - meanSSD));
+    const stopTrials = stop.stopSuccess + stop.stopFail;
+    finishModule("stop", {
+      ssrt, meanGoRT: Math.round(meanGoRT), meanSSD: Math.round(meanSSD),
+      goCorrect: stop.goCorrect, goError: stop.goError,
+      stopSuccessRate: stopTrials ? Math.round(stop.stopSuccess / stopTrials * 100) : 0,
+    });
+  }
+  $("stop-left").addEventListener("pointerdown", (e) => { e.preventDefault(); respondStop("left"); });
+  $("stop-right").addEventListener("pointerdown", (e) => { e.preventDefault(); respondStop("right"); });
+
+  /* ==================================================================
+     MODULE 5 — Webcam eye tracking (WebGazer)
+     ================================================================== */
+  let wgLoaded = false, wgActive = false;
+  function loadWebgazer() {
+    return new Promise((resolve, reject) => {
+      if (window.webgazer) return resolve();
+      const tryUrl = (url, next) => {
+        const s = document.createElement("script");
+        s.src = url; s.async = true;
+        s.onload = () => resolve();
+        s.onerror = () => next ? next() : reject(new Error("Chargement WebGazer impossible"));
+        document.head.appendChild(s);
+      };
+      tryUrl("https://webgazer.cs.brown.edu/webgazer.js",
+        () => tryUrl("https://cdn.jsdelivr.net/npm/webgazer/dist/webgazer.js", null));
+    });
+  }
+  function stopWebgazerSoft() {
+    try {
+      if (window.webgazer && wgActive) { window.webgazer.clearGazeListener(); window.webgazer.end(); }
+    } catch (e) {}
+    wgActive = false;
+    const v = $("webcam-video-wrap"); if (v) v.remove();
+  }
+  function startWebcam() {
+    const c = $("webcam-content");
+    c.innerHTML = `
+      <h2>Suivi oculaire par webcam</h2>
+      <p class="lead">Mesure ta stabilité de fixation et ta poursuite visuelle à partir de ta webcam. <b>La vidéo ne quitte jamais ton appareil</b> — aucun envoi, aucun enregistrement.</p>
+      <ul class="steps">
+        <li>Autorise la caméra quand le navigateur le demande.</li>
+        <li><b>Calibration :</b> regarde puis clique chaque point (×5) jusqu'à ce qu'il devienne vert.</li>
+        <li>Place-toi bien éclairé, visage face à l'écran, à ~50 cm.</li>
+      </ul>
+      <div class="disclaimer" style="margin:12px 0"><b>Précision limitée —</b> l'oculométrie par webcam est approximative ; à considérer comme indicatif, pas comme une mesure clinique.</div>
+      <button class="btn" id="wc-start">Activer la caméra</button>`;
+    show("webcam");
+    $("wc-start").addEventListener("click", initWebgazer);
+  }
+  async function initWebgazer() {
+    const c = $("webcam-content");
+    c.innerHTML = `<h2>Chargement…</h2><p class="lead">Initialisation de la webcam et du moteur de suivi.</p>`;
+    try {
+      await loadWebgazer();
+      wgLoaded = true;
+      window.webgazer.setRegression("ridge").setGazeListener(() => {});
+      window.webgazer.showVideoPreview(true).showPredictionPoints(false).showFaceOverlay(false).showFaceFeedbackBox(false);
+      window.webgazer.saveDataAcrossSessions(false);
+      await window.webgazer.begin();
+      wgActive = true;
+      // move preview into a small fixed corner
+      setTimeout(() => {
+        const vid = document.getElementById("webgazerVideoContainer");
+        if (vid) { vid.style.position = "fixed"; vid.style.top = "auto"; vid.style.bottom = "8px"; vid.style.left = "auto"; vid.style.right = "8px"; vid.style.zIndex = "50"; vid.style.width = "140px"; vid.style.height = "105px"; vid.style.opacity = ".85"; }
+      }, 400);
+      calibrateWebcam();
+    } catch (e) {
+      c.innerHTML = `<h2>Caméra indisponible</h2><p class="lead">Impossible d'accéder à la webcam ou de charger le moteur de suivi (permission refusée, pas de caméra, ou connexion bloquée).</p>
+        <div class="btn-row"><button class="btn secondary" data-back2>← Menu</button><button class="btn" id="wc-retry">Réessayer</button></div>`;
+      c.querySelector("[data-back2]").addEventListener("click", goHome);
+      const r = document.getElementById("wc-retry"); if (r) r.addEventListener("click", startWebcam);
+    }
+  }
+  function calibrateWebcam() {
+    const c = $("webcam-content");
+    c.innerHTML = `<h2>Calibration</h2><p class="lead">Regarde chaque point et clique dessus <b>5 fois</b>. Ils deviennent verts une fois calibrés.</p>
+      <div class="stage" id="cal-stage"></div>
+      <div class="tap-hint" id="cal-hint">0 / 5 points calibrés</div>`;
+    const stage = $("cal-stage");
+    const pts = [[15,18],[85,18],[50,50],[15,82],[85,82],[50,15],[50,85]];
+    let doneCount = 0;
+    setTimeout(() => {
+      const rect = stage.getBoundingClientRect();
+      pts.forEach((p) => {
+        const d = document.createElement("div");
+        d.className = "cal-dot";
+        d.style.left = p[0] + "%"; d.style.top = p[1] + "%";
+        let clicks = 0; d.textContent = "5";
+        d.addEventListener("click", () => {
+          const r2 = stage.getBoundingClientRect();
+          const x = r2.left + r2.width * p[0] / 100, y = r2.top + r2.height * p[1] / 100;
+          try { window.webgazer.recordScreenPosition(x, y, "click"); } catch (e) {}
+          clicks++; d.textContent = Math.max(0, 5 - clicks);
+          if (clicks >= 5) { d.classList.add("done"); d.textContent = "✓"; doneCount++; $("cal-hint").textContent = `${doneCount} / ${pts.length} points calibrés`;
+            if (doneCount >= pts.length) setTimeout(runFixation, 500); }
+        });
+        stage.appendChild(d);
+      });
+    }, 60);
+  }
+  function sampleGaze() {
+    try { return window.webgazer.getCurrentPrediction(); } catch (e) { return null; }
+  }
+  function runFixation() {
+    const c = $("webcam-content");
+    c.innerHTML = `<div class="big-instruction"><div class="rule">Fixe la croix au centre, sans bouger les yeux</div></div>
+      <div class="stage" id="fix-stage"><div class="fixation" style="color:var(--primary-2)">+</div><div class="progress" id="fix-prog" style="width:0%"></div></div>
+      <div class="tap-hint">Garde le regard bien fixe…</div>`;
+    const stage = $("fix-stage");
+    const dur = 8000, start = now(); const samples = [];
+    const rect = stage.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+    const diag = Math.hypot(rect.width, rect.height);
+    const raf = () => {
+      const el = now() - start;
+      $("fix-prog").style.width = Math.min(100, el / dur * 100) + "%";
+      const g = sampleGaze();
+      if (g && typeof g.x === "number") samples.push(Math.hypot(g.x - cx, g.y - cy) / diag);
+      if (el < dur) requestAnimationFrame(raf); else finishFixation(samples);
+    };
+    requestAnimationFrame(raf);
+    window._fixData = { samples };
+  }
+  function finishFixation(samples) {
+    window._wcFix = { dispersion: samples.length ? stdev(samples) : null, meanOff: samples.length ? mean(samples) : null, n: samples.length };
+    runPursuitCam();
+  }
+  function runPursuitCam() {
+    const c = $("webcam-content");
+    c.innerHTML = `<div class="big-instruction"><div class="rule">Suis le point des yeux, sans bouger la tête</div></div>
+      <div class="stage" id="pur-stage"><div class="target-dot" id="pur-dot"></div><div class="progress" id="pur-prog" style="width:0%"></div></div>
+      <div class="tap-hint">Reste concentré sur le point…</div>`;
+    const stage = $("pur-stage"), dot = $("pur-dot");
+    const dur = 16000, start = now(); const dists = [];
+    const rect = stage.getBoundingClientRect();
+    const pad = 40, dotR = 22;
+    const availW = Math.max(40, rect.width - pad * 2 - dotR * 2), availH = Math.max(40, rect.height - pad * 2 - dotR * 2);
+    const diag = Math.hypot(rect.width, rect.height);
+    const raf = () => {
+      const el = now() - start;
+      const a = el / 3400, b = el / 5300;
+      const lx = pad + dotR + (Math.sin(a) * .5 + .5) * availW;
+      const ly = pad + dotR + (Math.sin(b) * .5 + .5) * availH;
+      dot.style.left = lx + "px"; dot.style.top = ly + "px"; dot.style.transform = "translate(-50%,-50%)";
+      $("pur-prog").style.width = Math.min(100, el / dur * 100) + "%";
+      const g = sampleGaze();
+      if (g && typeof g.x === "number") {
+        const tx = rect.left + lx, ty = rect.top + ly;
+        dists.push(Math.hypot(g.x - tx, g.y - ty) / diag);
+      }
+      if (el < dur) requestAnimationFrame(raf); else finishPursuitCam(dists);
+    };
+    requestAnimationFrame(raf);
+  }
+  function finishPursuitCam(dists) {
+    const fix = window._wcFix || {};
+    const pursuitErr = dists.length ? mean(dists) : null;
+    const valid = (fix.n || 0) > 10 && dists.length > 10;
+    finishModule("webcam", {
+      valid, fixDispersion: fix.dispersion, fixMeanOff: fix.meanOff,
+      pursuitErr, samples: (fix.n || 0) + dists.length,
+    });
+  }
+
+  /* ==================================================================
+     RESULTS / SYNTHÈSE
+     ================================================================== */
+  function scoreband(v, goodBelow, warnBelow) { // lower is better
+    if (v == null) return "neutral";
+    if (v < goodBelow) return "good"; if (v < warnBelow) return "warn"; return "bad";
+  }
+  function pill(cls, txt) { return `<span class="pill ${cls}">${txt}</span>`; }
+
   function showResults() {
-    const t1 = R.t1, t2 = R.t2;
+    const cards = []; let flags = 0, flagMax = 0;
 
-    // --- sub-scores (0..100) ---
-    // Inattention: omissions (missed go) + pursuit misses
-    const omissionRate = t1.goTotal ? t1.omissions / t1.goTotal : 0;
-    const pursuitMissRate = t2.total ? t2.misses / t2.total : 0;
-    const attentionScore = Math.round(clamp(100 - (omissionRate*70 + pursuitMissRate*45), 0, 100));
+    // ASRS
+    if (RESULTS.asrs) {
+      const r = RESULTS.asrs; flagMax++;
+      const cls = r.positive ? "bad" : (r.partA >= 3 ? "warn" : "good");
+      if (r.positive) flags++; else if (r.partA >= 3) flags += 0.5;
+      cards.push(card("📝", "Questionnaire ASRS v1.1", cls,
+        r.positive ? "Dépistage positif" : (r.partA >= 3 ? "Limite" : "Négatif"),
+        `Partie A : <b>${r.partA} / 6</b> marques ${r.partA >= 4 ? "(seuil ≥ 4 atteint)" : "(seuil : 4)"} · Inattention <b>${r.inatt}/${r.inattMax}</b> · Hyperactivité/impulsivité <b>${r.hyper}/${r.hyperMax}</b>`));
+    }
+    // Go/No-Go
+    if (RESULTS.gonogo) {
+      const r = RESULTS.gonogo; flagMax++;
+      const omRate = r.goTotal ? r.omissions / r.goTotal : 0;
+      const coRate = r.noGoTotal ? r.commissions / r.noGoTotal : 0;
+      const bad = omRate > 0.2 || coRate > 0.4 || r.rtVar > 250;
+      const warn = omRate > 0.1 || coRate > 0.25 || r.rtVar > 180;
+      if (bad) flags++; else if (warn) flags += 0.5;
+      cards.push(card("🎯", "Attention soutenue (Go/No-Go)", bad ? "bad" : (warn ? "warn" : "good"),
+        bad ? "Signaux notables" : (warn ? "À surveiller" : "Dans la norme"),
+        `Oublis <b>${r.omissions}</b> · Erreurs sur « X » <b>${r.commissions}</b> · RT <b>${r.meanRT} ms</b> · Variabilité <b>±${r.rtVar} ms</b>`));
+    }
+    // Stroop
+    if (RESULTS.stroop) {
+      const r = RESULTS.stroop; flagMax++;
+      const errRate = r.errors / r.total;
+      const bad = r.interference > 250 || errRate > 0.2;
+      const warn = r.interference > 150 || errRate > 0.1;
+      if (bad) flags++; else if (warn) flags += 0.5;
+      cards.push(card("🎨", "Test de Stroop", bad ? "bad" : (warn ? "warn" : "good"),
+        bad ? "Interférence élevée" : (warn ? "À surveiller" : "Bon contrôle"),
+        `Interférence <b>${isFinite(r.interference)?r.interference:"–"} ms</b> (incongruent ${r.incongRT||"–"} − congruent ${r.congRT||"–"}) · Erreurs <b>${r.errors}/${r.total}</b>`));
+    }
+    // Stop-Signal
+    if (RESULTS.stop) {
+      const r = RESULTS.stop; flagMax++;
+      const bad = r.ssrt > 320, warn = r.ssrt > 250;
+      if (bad) flags++; else if (warn) flags += 0.5;
+      cards.push(card("✋", "Test Stop-Signal", bad ? "bad" : (warn ? "warn" : "good"),
+        bad ? "Inhibition faible" : (warn ? "À surveiller" : "Bonne inhibition"),
+        `SSRT <b>${r.ssrt} ms</b> (plus bas = mieux) · RT Go <b>${r.meanGoRT} ms</b> · Arrêts réussis <b>${r.stopSuccessRate}%</b>`));
+    }
+    // Webcam
+    if (RESULTS.webcam) {
+      const r = RESULTS.webcam;
+      if (r.valid) {
+        flagMax++;
+        const disp = r.fixDispersion, pur = r.pursuitErr;
+        const bad = (disp != null && disp > 0.08) || (pur != null && pur > 0.22);
+        const warn = (disp != null && disp > 0.05) || (pur != null && pur > 0.15);
+        if (bad) flags++; else if (warn) flags += 0.5;
+        cards.push(card("👁️", "Suivi oculaire (webcam)", bad ? "bad" : (warn ? "warn" : "good"),
+          bad ? "Instabilité marquée" : (warn ? "À surveiller" : "Regard stable"),
+          `Dispersion de fixation <b>${disp!=null?(disp*100).toFixed(1)+"%":"–"}</b> · Erreur de poursuite <b>${pur!=null?(pur*100).toFixed(1)+"%":"–"}</b> <span style="opacity:.7">(indicatif)</span>`));
+      } else {
+        cards.push(card("👁️", "Suivi oculaire (webcam)", "neutral", "Données insuffisantes",
+          `Le suivi n'a pas capté assez de points (éclairage, position). Résultat non pris en compte.`));
+      }
+    }
 
-    // Impulsivity: commissions (responded to X) + false alarms
-    const commissionRate = t1.noGoTotal ? t1.commissions / t1.noGoTotal : 0;
-    const faPenalty = Math.min(1, t2.falseAlarms / 4);
-    const impulseScore = Math.round(clamp(100 - (commissionRate*80 + faPenalty*25), 0, 100));
+    if (cards.length === 0) {
+      cards.push(`<div class="rescard"><div class="metrics-line">Aucun test complété pour l'instant. Lance un module depuis le menu.</div></div>`);
+    }
+    $("results-cards").innerHTML = cards.join("");
 
-    // Consistency: reaction-time variability (lower is better). ~120ms sd is good, ~450ms poor.
-    const variability = (t1.rtVariability + t2.rtVariability) / 2;
-    const consistencyScore = Math.round(clamp(100 - (variability - 120) / 3.3, 0, 100));
-
-    // Speed: mean RT (~350ms good, ~750ms slow) blended across tests
-    const meanRT = (t1.meanRT + (t2.meanRT||t1.meanRT)) / 2;
-    const speedScore = Math.round(clamp(100 - (meanRT - 300) / 4.5, 0, 100));
-
-    const global = Math.round(attentionScore*0.35 + impulseScore*0.3 + consistencyScore*0.2 + speedScore*0.15);
-
-    // gauge
-    animateGauge(global);
-    $("global-score").textContent = global;
-    $("global-pill").innerHTML = pillFor(global, true);
-
-    // metrics grid
-    const metrics = [
-      { k: "🎯 Attention soutenue", score: attentionScore,
-        v: `${t1.omissions}<small> oubli${t1.omissions>1?'s':''} · ${t2.misses} cible${t2.misses>1?'s':''} manquée${t2.misses>1?'s':''}</small>` },
-      { k: "✋ Contrôle des impulsions", score: impulseScore,
-        v: `${t1.commissions}<small> erreur${t1.commissions>1?'s':''} sur « X » · ${t2.falseAlarms} clic${t2.falseAlarms>1?'s':''} hâtif${t2.falseAlarms>1?'s':''}</small>` },
-      { k: "📈 Régularité", score: consistencyScore,
-        v: `±${Math.round(variability)}<small> ms de variabilité</small>` },
-      { k: "⚡ Vitesse de réaction", score: speedScore,
-        v: `${Math.round(meanRT)}<small> ms en moyenne</small>` },
-    ];
-    $("metrics").innerHTML = metrics.map(m => `
-      <div class="metric">
-        <div class="k">${m.k}</div>
-        <div class="v">${m.v}</div>
-        ${pillFor(m.score)}
-      </div>`).join("");
+    // gauge = proportion of flags
+    const ratio = flagMax ? flags / flagMax : 0;
+    const scoreOn100 = Math.round(ratio * 100);
+    const done = Object.keys(RESULTS).length;
+    $("global-score").textContent = flagMax ? `${scoreOn100}` : done;
+    $("global-sub").textContent = flagMax ? "% de signaux" : "test(s) complété(s)";
+    const arc = $("gauge-arc"), full = 267;
+    const col = ratio >= .5 ? "var(--bad)" : ratio >= .25 ? "var(--warn)" : "var(--good)";
+    arc.style.stroke = col; arc.style.transition = "stroke-dashoffset 1s ease";
+    requestAnimationFrame(() => { arc.style.strokeDashoffset = full - full * clamp(ratio, 0, 1); });
+    const gp = ratio >= .5 ? pill("bad", "Plusieurs signaux évocateurs") : ratio >= .25 ? pill("warn", "Quelques signaux") : (flagMax ? pill("good", "Peu de signaux") : pill("neutral", "En cours"));
+    $("global-pill").innerHTML = gp;
 
     // interpretation
-    $("interpretation").innerHTML = interpret(attentionScore, impulseScore, consistencyScore, global);
+    const msgs = [];
+    if (RESULTS.asrs && RESULTS.asrs.positive)
+      msgs.push("<p>📝 Ton <b>questionnaire ASRS est positif</b> (≥ 4 marques en partie A) : c'est l'indicateur le plus significatif ici. Un avis professionnel est recommandé.</p>");
+    if (flagMax >= 3 && ratio >= .5)
+      msgs.push("<p>Plusieurs tests convergent vers des <b>difficultés d'attention et/ou d'impulsivité</b>. Cela ne pose pas de diagnostic, mais justifie d'en parler à un professionnel.</p>");
+    else if (ratio < .25 && flagMax >= 2)
+      msgs.push("<p>Tes résultats sont globalement <b>dans la norme</b> sur les tests réalisés.</p>");
+    if (done < MODULES.length)
+      msgs.push(`<p style="color:var(--muted)">Complète les ${MODULES.length - done} module(s) restant(s) pour une image plus fiable — surtout le questionnaire ASRS, le plus prédictif.</p>`);
+    msgs.push("<p style='color:var(--muted)'>Le TDAH se manifeste sur la durée, depuis l'enfance et dans plusieurs contextes de vie. Un test ponctuel ne peut pas le confirmer ni l'exclure.</p>");
+    $("interpretation").innerHTML = msgs.join("");
 
-    R.summary = { global, attentionScore, impulseScore, consistencyScore, speedScore, meanRT: Math.round(meanRT) };
+    RESULTS._summary = { flags, flagMax, scoreOn100 };
     show("results");
   }
-
-  function pillFor(score, withText) {
-    let cls, label;
-    if (score >= 75) { cls = "good"; label = "Bon"; }
-    else if (score >= 50) { cls = "warn"; label = "Moyen"; }
-    else { cls = "bad"; label = "À surveiller"; }
-    return `<span class="pill ${cls}">${label}${withText ? "" : " · " + score}</span>`;
+  function card(ic, title, cls, pillTxt, line) {
+    return `<div class="rescard"><div class="rh"><div class="ic">${ic}</div><div class="t">${title}</div>${pill(cls, pillTxt)}</div><div class="metrics-line">${line}</div></div>`;
   }
 
-  function animateGauge(score) {
-    const arc = $("gauge-arc");
-    const full = 267; // path length approx
-    const offset = full - (full * clamp(score,0,100) / 100);
-    const color = score >= 75 ? "var(--good)" : score >= 50 ? "var(--warn)" : "var(--bad)";
-    arc.style.stroke = color;
-    arc.style.transition = "stroke-dashoffset 1s ease";
-    requestAnimationFrame(() => { arc.style.strokeDashoffset = offset; });
-  }
-
-  function interpret(att, imp, cons, global) {
-    let msgs = [];
-    if (global >= 75) {
-      msgs.push("<p>Vos résultats sont globalement <b>solides</b> : bonne concentration et bon contrôle des réactions sur ce test.</p>");
-    } else if (global >= 50) {
-      msgs.push("<p>Vos résultats sont <b>corrects mais irréguliers</b>. Certains signaux méritent attention, sans être alarmants.</p>");
-    } else {
-      msgs.push("<p>Ce test a révélé des <b>difficultés notables</b> d'attention et/ou d'impulsivité. Cela ne signifie pas que vous avez un TDAH, mais mérite d'en parler.</p>");
-    }
-    if (att < 60) msgs.push("<p>🎯 <b>Attention :</b> plusieurs cibles ont été manquées, signe possible d'un relâchement de la concentration.</p>");
-    if (imp < 60) msgs.push("<p>✋ <b>Impulsivité :</b> vous avez réagi à des stimuli qu'il fallait ignorer — un marqueur classique d'impulsivité.</p>");
-    if (cons < 60) msgs.push("<p>📈 <b>Régularité :</b> vos temps de réaction varient beaucoup, ce qui reflète une attention fluctuante.</p>");
-    msgs.push("<p style='color:var(--muted)'>Le TDAH se manifeste sur la durée et dans plusieurs contextes de vie. Un seul test ne suffit jamais à conclure.</p>");
-    return msgs.join("");
-  }
-
-  // ================= wiring =================
-  $("btn-start").addEventListener("click", () => {
-    countdown("Test 1 · Attention soutenue", "Touchez à chaque lettre sauf le « X »", () => {
-      show("test1"); startTest1();
-    });
-  });
-  $("btn-restart").addEventListener("click", () => location.reload());
-  $("btn-share").addEventListener("click", share);
-
-  // responses (tap / click / space)
-  $("stage1").addEventListener("pointerdown", (e) => { e.preventDefault(); respondTest1(); });
-  $("stage2").addEventListener("pointerdown", (e) => { e.preventDefault(); respondTest2(); });
-  document.addEventListener("keydown", (e) => {
-    if (e.code === "Space") {
-      e.preventDefault();
-      if (T1.running) respondTest1();
-      else if (T2.running) respondTest2();
-    }
-  });
-
-  async function share() {
-    const s = R.summary;
-    const text = `TDAH Oculaire — mon score d'attention : ${s.global}/100 (attention ${s.attentionScore}, impulsivité ${s.impulseScore}, régularité ${s.consistencyScore}). Fais le test 👀`;
+  async function shareResults() {
+    const s = RESULTS._summary || {};
+    const txt = `TDAH Oculaire — ${Object.keys(RESULTS).filter(k=>!k.startsWith("_")).length} test(s), ${s.flagMax?Math.round((s.flags/s.flagMax)*100):0}% de signaux évocateurs. Fais le test 👀`;
     try {
-      if (navigator.share) {
-        await navigator.share({ title: "TDAH Oculaire", text, url: location.href });
-      } else {
-        await navigator.clipboard.writeText(text + " " + location.href);
-        const b = $("btn-share"); const old = b.textContent;
-        b.textContent = "Copié ✓"; setTimeout(() => b.textContent = old, 1500);
-      }
-    } catch (_) { /* user cancelled */ }
+      if (navigator.share) await navigator.share({ title: "TDAH Oculaire", text: txt, url: location.href });
+      else { await navigator.clipboard.writeText(txt + " " + location.href); const b = $("btn-share"), o = b.textContent; b.textContent = "Copié ✓"; setTimeout(() => b.textContent = o, 1500); }
+    } catch (e) {}
   }
+  $("btn-share").addEventListener("click", shareResults);
 
-  // prevent double-tap zoom on iOS in stages
-  ["stage1","stage2"].forEach(id => {
-    $(id).addEventListener("touchend", e => e.preventDefault(), { passive: false });
+  // keyboard: space for go/no-go, arrows for stop-signal
+  document.addEventListener("keydown", (e) => {
+    if (e.code === "Space" && gng && gng.running) { e.preventDefault(); respondGNG(); }
+    else if (stop && stop.running) { if (e.code === "ArrowLeft") respondStop("left"); else if (e.code === "ArrowRight") respondStop("right"); }
   });
+  // prevent double-tap zoom on stages
+  ["gonogo-stage","stroop-stage","stop-stage"].forEach(id => {
+    const el = $(id); if (el) el.addEventListener("touchend", e => e.preventDefault(), { passive: false });
+  });
+
+  renderMenu();
 })();
 </script>
 </body>
